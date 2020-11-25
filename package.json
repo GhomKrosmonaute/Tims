@@ -1,8 +1,9 @@
 {
   "name": "tims",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Textual display of millisecond durations and in several languages.",
   "main": "dist/tims.js",
+  "types": "dist",
   "scripts": {
     "build": "tsc",
     "prepublish": "npm run build",
