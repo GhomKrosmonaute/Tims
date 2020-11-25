@@ -1,16 +1,39 @@
-import { languages, LanguageTemplate } from "./languages"
+import { languages } from "./languages"
 import { durations, Durations, isDuration } from "./durations"
-import { Options } from "./typing"
 
-export function past(ms: number, options?: Options): string {
-  return duration(Date.now() - ms, options)
+interface Options {
+  format?: keyof typeof languages["fr"]["plural"]
+  locale?: "fr" | "es" | "en"
+  full?: boolean
 }
 
-export function between(ms1: number, ms2: number, options?: Options): string {
-  return duration(Math.max(ms1, ms2) - Math.min(ms1, ms2), options)
+/** timestamp or {@link Date} */
+type DateResolvable = number | Date
+
+function resolve(date: DateResolvable): number {
+  return typeof date === "number" ? date : date.getTime()
 }
 
-export function duration(ms: number, options: Options = {}): string {
+/** Get the sentence of time past since given date */
+export function since(date: DateResolvable, options?: Options): string {
+  return duration(Date.now() - resolve(date), options)
+}
+
+/** Get the sentence of time between given dates */
+export function between(
+  date1: DateResolvable,
+  date2: DateResolvable,
+  options?: Options
+): string {
+  const time1 = resolve(date1),
+    time2 = resolve(date2)
+  return duration(Math.max(time1, time2) - Math.min(time1, time2), options)
+}
+
+/** Get the sentence of time given */
+export function duration(date: DateResolvable, options: Options = {}): string {
+  let ms = resolve(date)
+
   let { format, locale, full } = options
 
   const cache: Partial<Durations> = {}
@@ -28,7 +51,7 @@ export function duration(ms: number, options: Options = {}): string {
   if (!format) format = "second"
   if (!locale) locale = "en"
 
-  for (const key in counters) {
+  for (const key of Object.keys(counters)) {
     if (!isDuration(key)) continue
 
     while (ms >= durations[key]) {
@@ -60,7 +83,7 @@ export function duration(ms: number, options: Options = {}): string {
 
   const output = []
 
-  for (const key in cache) {
+  for (const key of Object.keys(cache)) {
     if (!isDuration(key)) continue
 
     if (cache[key]) {
@@ -85,7 +108,11 @@ export function duration(ms: number, options: Options = {}): string {
 }
 
 export default {
-  past,
+  since,
+  ago: since,
+  fromNow: since,
   between,
+  diff: between,
   duration,
+  value: duration,
 }

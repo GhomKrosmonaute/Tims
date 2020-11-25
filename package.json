@@ -5,8 +5,8 @@
   "main": "dist/tims.js",
   "scripts": {
     "build": "tsc",
-    "prettier": "prettier --write src",
-    "test": "node dist/test.js"
+    "prepublish": "npm run build",
+    "prettier": "prettier --write src"
   },
   "prettier": {
     "semi": false
