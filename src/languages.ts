@@ -52,8 +52,8 @@ export const languages: { [key: string]: LanguageTemplate } = {
       ms: "{quantifier} thousand of a second",
     },
     plural: {
-      year: "{quantifier} ans",
-      month: "{quantifier} month",
+      year: "{quantifier} years",
+      month: "{quantifier} months",
       day: "{quantifier} days",
       hour: "{quantifier} hours",
       minute: "{quantifier} minutes",
