@@ -3,7 +3,7 @@
 
 [![NPM](https://nodei.co/npm/tims.png?compact=true)](https://npmjs.org/package/tims)
 
-- typescript typings
+- typescript typings included
 - no dependency
 - optimized and light code
 
