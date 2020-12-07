@@ -14,12 +14,12 @@ function resolve(date: DateResolvable): number {
   return typeof date === "number" ? date : date.getTime()
 }
 
-/** Get the sentence of time past since given date */
+/** Get the sentence of time past since given moment */
 export function since(date: DateResolvable, options?: Options): string {
   return duration(Date.now() - resolve(date), options)
 }
 
-/** Get the sentence of time between given dates */
+/** Get the sentence of time between given moments */
 export function between(
   date1: DateResolvable,
   date2: DateResolvable,
@@ -30,7 +30,7 @@ export function between(
   return duration(Math.max(time1, time2) - Math.min(time1, time2), options)
 }
 
-/** Get the sentence of time given */
+/** Get the sentence of given duration */
 export function duration(date: DateResolvable, options: Options = {}): string {
   let ms = resolve(date)
 
