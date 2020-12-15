@@ -107,7 +107,7 @@ export function duration(date: DateResolvable, options: Options = {}): string {
   return output.join(", ")
 }
 
-export default {
+const output = {
   since,
   ago: since,
   fromNow: since,
@@ -116,3 +116,7 @@ export default {
   duration,
   value: duration,
 }
+
+export default output
+
+module.exports = output
