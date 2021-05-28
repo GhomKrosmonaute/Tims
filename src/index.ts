@@ -1,10 +1,11 @@
-import { languages } from "./languages"
+import { languages, Language, Format } from "./languages"
 import { durations, Durations, isDuration } from "./durations"
 
 interface Options {
-  format?: keyof typeof languages["fr"]["plural"]
-  locale?: "fr" | "es" | "en"
+  format?: Format
+  locale?: Language
   full?: boolean
+  maxPartCount?: number
 }
 
 /** timestamp or {@link Date} */
@@ -34,7 +35,7 @@ export function between(
 export function duration(date: DateResolvable, options: Options = {}): string {
   let ms = resolve(date)
 
-  let { format, locale, full } = options
+  let { format, locale, full, maxPartCount } = options
 
   const cache: Partial<Durations> = {}
 
@@ -93,6 +94,8 @@ export function duration(date: DateResolvable, options: Options = {}): string {
       break
     }
   }
+
+  if (maxPartCount) output.splice(maxPartCount)
 
   if (output.length > 1) {
     let last = output.pop()

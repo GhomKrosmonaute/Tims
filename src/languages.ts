@@ -10,7 +10,11 @@ export interface LanguageTemplate {
   plural: Durations<string>
 }
 
-export const languages: { [key: string]: LanguageTemplate } = {
+export type Language = "fr" | "en" | "es"
+
+export type Format = keyof typeof languages[Language]["plural"]
+
+export const languages: { [key in Language]: LanguageTemplate } = {
   fr: {
     and: "et",
     quantifiers: {
