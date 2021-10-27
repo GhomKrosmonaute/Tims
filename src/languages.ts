@@ -10,11 +10,34 @@ export interface LanguageTemplate {
   plural: Durations<string>
 }
 
-export type Language = "fr" | "en" | "es"
-
-export type Format = keyof typeof languages[Language]["plural"]
+export type Language = "fr" | "en" | "es" | "compact"
 
 export const languages: { [key in Language]: LanguageTemplate } = {
+  compact: {
+    and: "&",
+    quantifiers: {
+      one: "1",
+      nothing: "0",
+    },
+    singular: {
+      year: "{quantifier} year",
+      month: "{quantifier} month",
+      day: "{quantifier} day",
+      hour: "{quantifier}h",
+      minute: "{quantifier}m",
+      second: "{quantifier}s",
+      ms: "{quantifier}ms",
+    },
+    plural: {
+      year: "{quantifier} years",
+      month: "{quantifier} month",
+      day: "{quantifier} days",
+      hour: "{quantifier}h",
+      minute: "{quantifier}m",
+      second: "{quantifier}s",
+      ms: "{quantifier}ms",
+    },
+  },
   fr: {
     and: "et",
     quantifiers: {
@@ -76,7 +99,7 @@ export const languages: { [key in Language]: LanguageTemplate } = {
       month: "{quantifier}o mes",
       day: "{quantifier}o día",
       hour: "{quantifier}a hora",
-      minute: "{quantifier}a minutos",
+      minute: "{quantifier}a minuto",
       second: "{quantifier}a segundo",
       ms: "{quantifier}o milésima de segundo",
     },

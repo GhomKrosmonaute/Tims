@@ -1,16 +1,14 @@
 const day = 1000 * 60 * 60 * 24
 
-export interface Durations<T = any> {
-  year: T
-  month: T
-  day: T
-  hour: T
-  minute: T
-  second: T
-  ms: T
-}
-
-export type Duration = keyof Durations
+export type Unities =
+  | "year"
+  | "month"
+  | "day"
+  | "hour"
+  | "minute"
+  | "second"
+  | "ms"
+export type Durations<T = any> = Record<Unities, T>
 
 export const durations: Durations<number> = {
   day,
@@ -22,6 +20,6 @@ export const durations: Durations<number> = {
   ms: 1,
 }
 
-export function isDuration(key: string): key is Duration {
+export function isDuration(key: string): key is Unities {
   return durations.hasOwnProperty(key)
 }

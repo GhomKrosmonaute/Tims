@@ -1,10 +1,11 @@
-import { languages, Language, Format } from "./languages"
-import { durations, Durations, isDuration } from "./durations"
+import { languages, Language } from "./languages"
+import { durations, Durations, isDuration, Unities } from "./durations"
 
 interface Options {
-  format?: Format
+  format?: Unities
   locale?: Language
   full?: boolean
+  smallUnities?: boolean
   maxPartCount?: number
 }
 
@@ -52,6 +53,7 @@ export function duration(date: DateResolvable, options: Options = {}): string {
   if (!format) format = "second"
   if (!locale) locale = "en"
 
+  // create parts
   for (const key of Object.keys(counters)) {
     if (!isDuration(key)) continue
 
@@ -84,6 +86,7 @@ export function duration(date: DateResolvable, options: Options = {}): string {
 
   const output = []
 
+  // slice by option.format
   for (const key of Object.keys(cache)) {
     if (!isDuration(key)) continue
 
@@ -95,6 +98,7 @@ export function duration(date: DateResolvable, options: Options = {}): string {
     }
   }
 
+  // slice by option.maxPartCount
   if (maxPartCount) output.splice(maxPartCount)
 
   if (output.length > 1) {
